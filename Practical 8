@@ -1,0 +1,22 @@
+n=$#
+arr="$@"
+
+set -- $arr
+
+for i in $@
+do
+    for j in $@
+    do
+        if [ $i -gt $j ]
+        then
+            temp=$i
+            i=$j
+            j=$temp
+        fi
+    done
+done
+
+for i in $@
+do
+    echo $i
+done | sort -nr

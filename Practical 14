@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <pthread.h>
+#include <stdlib.h>
+
+#define SIZE 1000
+
+int a[SIZE], b[SIZE];
+int addResult[SIZE], subResult[SIZE];
+
+void* addArrays(void* arg) {
+    for (int i = 0; i < SIZE; i++) {
+        addResult[i] = a[i] + b[i];
+    }
+    printf("Addition thread completed\n");
+    return NULL;
+}
+
+void* subArrays(void* arg) {
+    for (int i = 0; i < SIZE; i++) {
+        subResult[i] = a[i] - b[i];
+    }
+    printf("Subtraction thread completed\n");
+    return NULL;
+}
+
+int main() {
+    pthread_t t1, t2;
+
+    for (int i = 0; i < SIZE; i++) {
+        a[i] = i + 1;
+        b[i] = (i + 1) * 2;
+    }
+
+    pthread_create(&t1, NULL, addArrays, NULL);
+    pthread_create(&t2, NULL, subArrays, NULL);
+
+    pthread_join(t1, NULL);
+    pthread_join(t2, NULL);
+
+    printf("Sample Output:\n");
+    printf("Addition: %d\n", addResult[0]);
+    printf("Subtraction: %d\n", subResult[0]);
+
+    return 0;
+}

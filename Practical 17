@@ -1,0 +1,10 @@
+function toUpper(word) {
+    return toupper(word)
+}
+
+{
+    for (i = 1; i <= NF; i++) {
+        printf "%s ", toUpper($i)
+    }
+    printf "\n"
+}

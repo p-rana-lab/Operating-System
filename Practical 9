@@ -1,0 +1,12 @@
+#!/bin/sh
+
+echo "Executable files:"
+find . -maxdepth 1 -type f -perm -111
+
+echo ""
+echo "Directories:"
+find . -maxdepth 1 -type d
+
+echo ""
+echo "Zero sized files:"
+find . -maxdepth 1 -type f -size 0

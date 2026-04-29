@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <utmp.h>
+#include <stdlib.h>
+
+int main() {
+    struct utmp *n;
+
+    setutent();
+
+    while ((n = getutent()) != NULL) {
+        if (n->ut_type == USER_PROCESS) {
+            printf("%s\t%s\t%s\n",
+                   n->ut_user,
+                   n->ut_line,
+                   n->ut_host);
+        }
+    }
+
+    endutent();
+
+    return 0;
+}

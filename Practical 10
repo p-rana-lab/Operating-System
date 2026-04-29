@@ -1,0 +1,11 @@
+echo "Enter message to send to all logged-in users:"
+read msg
+
+users=$(who | awk '{print $1}' | sort | uniq)
+
+for user in $users
+do
+    echo "$msg" | write $user
+done
+
+echo "Message sent to all logged-in users."

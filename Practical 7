@@ -1,0 +1,58 @@
+echo "Enter date (dd-mm-yyyy):"
+read date
+
+day=`echo $date | cut -d'-' -f1`
+month=`echo $date | cut -d'-' -f2`
+year=`echo $date | cut -d'-' -f3`
+
+valid=1
+
+if [ $month -lt 1 ] || [ $month -gt 12 ]
+then
+    valid=0
+fi
+
+if [ $day -lt 1 ] || [ $day -gt 31 ]
+then
+    valid=0
+fi
+
+if [ $month -eq 4 ] || [ $month -eq 6 ] || [ $month -eq 9 ] || [ $month -eq 11 ]
+then
+    if [ $day -gt 30 ]
+    then
+        valid=0
+    fi
+fi
+
+if [ $month -eq 2 ]
+then
+    leap=0
+    if [ `expr $year % 4` -eq 0 ]
+    then
+        if [ `expr $year % 100` -ne 0 ] || [ `expr $year % 400` -eq 0 ]
+        then
+            leap=1
+        fi
+    fi
+
+    if [ $leap -eq 1 ]
+    then
+        if [ $day -gt 29 ]
+        then
+            valid=0
+        fi
+    else
+        if [ $day -gt 28 ]
+        then
+            valid=0
+        fi
+    fi
+fi
+
+if [ $valid -eq 1 ]
+then
+    echo "Valid Date"
+else
+    echo "Invalid Date"
+fi
